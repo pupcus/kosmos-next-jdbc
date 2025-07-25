@@ -1,0 +1,35 @@
+{
+ :deps
+ {
+  io.github.pupcus/kosmos {:git/tag "2025-07-24-R1"
+                           :git/sha "aa76089"}
+  org.clojure/tools.logging  {:mvn/version "1.3.0"}
+  com.github.seancorfield/next.jdbc {:mvn/version "1.3.1048"}
+  com.zaxxer/HikariCP {:mvn/version "6.3.2"}
+  }
+
+ :paths ["src"]
+
+ :aliases
+ {
+  :dev {:extra-paths ["test" "dev-resources"]
+        :extra-deps {io.github.pupcus/kosmos-hsqldb-server {:git/tag "2025-07-24-R1"
+                                                            :git/sha "a02f822"}
+                     org.hsqldb/hsqldb$jdk8        {:mvn/version "2.7.4"}
+                     cider/cider-nrepl             {:mvn/version "0.57.0"}
+                     org.clojure/clojure           {:mvn/version "1.12.1"}
+                     org.slf4j/slf4j-simple        {:mvn/version "2.0.17"}
+                     refactor-nrepl/refactor-nrepl {:mvn/version "3.11.0"}}
+        :main-opts ["-m" "nrepl.cmdline"
+                    "--middleware" "[refactor-nrepl.middleware/wrap-refactor,cider.nrepl/cider-middleware]"]}
+
+  :test {:extra-paths ["test" "dev-resources"]
+         :extra-deps {io.github.pupcus/kosmos-hsqldb-server {:git/tag "2025-07-24-R1"
+                                                             :git/sha "a02f822"}
+                      org.hsqldb/hsqldb$jdk8        {:mvn/version "2.7.4"}
+                      lambdaisland/kaocha    {:mvn/version "1.91.1392"}
+                      org.slf4j/slf4j-simple {:mvn/version "2.0.17"}}
+         :jvm-opts ["-XX:-OmitStackTraceInFastThrow"]
+         :main-opts [ "-m" "kaocha.runner"]}
+  }
+ }
